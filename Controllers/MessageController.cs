@@ -22,12 +22,14 @@ namespace RandomnessnessAPI.Controllers
         [HttpGet]
         public ActionResult<string> GetMessage()
         {
+            json = System.IO.File.ReadAllText("Data/data.json");
             return Ok(json);
         }
 
         [HttpGet("text")]
         public ActionResult<string> GetMessageText()
         {
+            json = System.IO.File.ReadAllText("Data/data.json");
             message = JsonConvert.DeserializeObject<Message>(json);
             return message.text;
         }

@@ -1,0 +1,20 @@
+@rootURL = http://localhost:5089
+
+GET {{rootURL}}/WeatherForecast/
+Accept: application/json
+
+###
+GET {{rootURL}}/api/Message/
+Accept: application/json
+
+###
+GET {{rootURL}}/api/Message/text
+Accept: application/json
+
+###
+POST {{rootURL}}/api/Message
+Content-Type: application/json
+
+{
+  "text" : "New Message"
+}

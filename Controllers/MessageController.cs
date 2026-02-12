@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Newtonsoft.Json;
 using RandomnessnessAPI.Models;
 
@@ -9,8 +10,14 @@ namespace RandomnessnessAPI.Controllers
     [ApiController]
     public class MessageController : ControllerBase
     {
+        public readonly IHubContext<messageHub> _hubContext;
         private static string json = System.IO.File.ReadAllText("Data/data.json");
         private static Message message;
+
+        public MessageController(IHubContext<messageHub> hubContext)
+        {
+            _hubContext = hubContext;
+        }
 
         [HttpGet]
         public ActionResult<string> GetMessage()
@@ -26,10 +33,11 @@ namespace RandomnessnessAPI.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Message> PostMessage([FromBody] Message newMessage)
+        public async Task<ActionResult<Message>> PostMessage([FromBody] Message newMessage)
         {
             json = JsonConvert.SerializeObject(newMessage);
-            System.IO.File.WriteAllText("Data/data.json", json);
+            await System.IO.File.WriteAllTextAsync("Data/data.json", json);
+            await _hubContext.Clients.All.SendAsync("ReceiveNewMessage", newMessage);
             return CreatedAtAction("GetMessage", newMessage);
         }
     }

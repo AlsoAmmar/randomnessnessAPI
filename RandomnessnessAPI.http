@@ -1,9 +1,5 @@
 @rootURL = http://localhost:5089
 
-GET {{rootURL}}/WeatherForecast/
-Accept: application/json
-
-###
 GET {{rootURL}}/api/Message/
 Accept: application/json
 

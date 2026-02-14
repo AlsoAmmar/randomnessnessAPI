@@ -8,9 +8,9 @@ GET {{rootURL}}/api/Message/text
 Accept: application/json
 
 ###
-POST {{rootURL}}/api/Message
+POST https://randomnessnessapi-production.up.railway.app/api/message
 Content-Type: application/json
 
 {
-  "text" : "New Message"
+  "text" : "THIS IS SO PEAK CINEMA"
 }

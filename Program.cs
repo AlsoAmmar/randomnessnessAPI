@@ -12,7 +12,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("SignalRCors", policy =>
     {
-        policy.WithOrigins("https://randomnessness.vercel.app")
+        policy.WithOrigins("https://localhost:7169", "https://randomnessness.vercel.app")
               .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowCredentials();
